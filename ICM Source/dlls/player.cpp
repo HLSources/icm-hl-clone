@@ -2077,7 +2077,7 @@ void CBasePlayer::CheckTimeBasedDamage()
 		return;
 
 	// only check for time based damage approx. every 2 seconds
-	if (abs(gpGlobals->time - m_tbdPrev) < 2.0)
+	if (fabs(gpGlobals->time - m_tbdPrev) < 2.0)
 		return;
 	
 	m_tbdPrev = gpGlobals->time;
@@ -2682,23 +2682,23 @@ pt_end:
 				
 				if ( gun && gun->UseDecrement() )
 				{
-					gun->m_flNextPrimaryAttack		= max( gun->m_flNextPrimaryAttack - gpGlobals->frametime, -1.0 );
-					gun->m_flNextSecondaryAttack	= max( gun->m_flNextSecondaryAttack - gpGlobals->frametime, -0.001 );
+					gun->m_flNextPrimaryAttack		= max( gun->m_flNextPrimaryAttack - gpGlobals->frametime, -1.0f );
+					gun->m_flNextSecondaryAttack	= max( gun->m_flNextSecondaryAttack - gpGlobals->frametime, -0.001f );
 
 					if ( gun->m_flTimeWeaponIdle != 1000 )
 					{
-						gun->m_flTimeWeaponIdle		= max( gun->m_flTimeWeaponIdle - gpGlobals->frametime, -0.001 );
+						gun->m_flTimeWeaponIdle		= max( gun->m_flTimeWeaponIdle - gpGlobals->frametime, -0.001f );
 					}
 
 					if ( gun->pev->fuser1 != 1000 )
 					{
-						gun->pev->fuser1	= max( gun->pev->fuser1 - gpGlobals->frametime, -0.001 );
+						gun->pev->fuser1	= max( gun->pev->fuser1 - gpGlobals->frametime, -0.001f );
 					}
 
 					// Only decrement if not flagged as NO_DECREMENT
 //					if ( gun->m_flPumpTime != 1000 )
 				//	{
-				//		gun->m_flPumpTime	= max( gun->m_flPumpTime - gpGlobals->frametime, -0.001 );
+				//		gun->m_flPumpTime	= max( gun->m_flPumpTime - gpGlobals->frametime, -0.001f );
 				//	}
 					
 				}
@@ -4014,7 +4014,7 @@ void CBasePlayer :: UpdateClientData( void )
 
 	if (pev->health != m_iClientHealth)
 	{
-		int iHealth = max( pev->health, 0 );  // make sure that no negative health values are sent
+		int iHealth = max( pev->health, 0.0f );  // make sure that no negative health values are sent
 
 		// send "health" update message
 		MESSAGE_BEGIN( MSG_ONE, gmsgHealth, NULL, pev );

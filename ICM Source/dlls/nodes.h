@@ -16,7 +16,11 @@
 // nodes.h
 //=========================================================
 // START RHO-BOT (Eric)
+#ifdef _WIN32
 #include <fstream.h>
+#else
+#include <fstream>
+#endif
 
 typedef short int NAV_ARRAY_TYPE; // in case a short int isn't big enough
 //30-July-2001: Halved NAV_GRIDBOX_SIZE from 64 to 32

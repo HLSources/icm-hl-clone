@@ -34,8 +34,11 @@
 #include "weapons.h"
 #include "bot.h"
 #include "game.h"
+#ifdef _WIN32
 #include <fstream.h>
-
+#else
+#include <fstream>
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 // Constructor/Destructor
 ///////////////////////////////////////////////////////////////////////////////
@@ -82,7 +85,7 @@ float CBaseBotStats::FDifficultyAdjusted( float currentTrait )
 		TweakEasier = FALSE;
 	}
 
-	tweakedDiffLevel = abs( tweakedDiffLevel ); // [0,50]
+	tweakedDiffLevel = fabs( tweakedDiffLevel ); // [0,50]
 	tweakedDiffLevel /= 50; // [0,1]
 
 	float adjustedTrait = currentTrait;

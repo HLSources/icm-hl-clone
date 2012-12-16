@@ -1,30 +1,38 @@
-#ingram chillin' mod Makefile for linux
+#
+# Half-Life Full SDK 2.2 hl_i386.so Makefile for x86 Linux
+#
+# August 2001 by Leon Hartwig (hartwig@valvesoftware.com)
+#
 
 DLLNAME=icm
 
-ARCH=i586
+ARCH=i386
 
 #make sure this is the correct compiler for your system
 CC=gcc
+CPP=g++
 
 DLL_SRCDIR=.
 ENGINE_SRCDIR=../engine
 COMMON_SRCDIR=../common
+WPN_SHARED_SRCDIR=./wpn_shared
 PM_SHARED_SRCDIR=../pm_shared
 GAME_SHARED_SRCDIR=../game_shared
 
-DLL_OBJDIR=$(DLL_SRCDIR)/obj
-PM_SHARED_OBJDIR=$(PM_SHARED_SRCDIR)/obj
-GAME_SHARED_OBJDIR=$(GAME_SHARED_SRCDIR)/obj
+MAIN_OBJDIR=$(DLL_SRCDIR)/obj
+DLL_OBJDIR=$(MAIN_OBJDIR)/dll
+WPN_SHARED_OBJDIR=$(MAIN_OBJDIR)/wpn_shared
+PM_SHARED_OBJDIR=$(MAIN_OBJDIR)/pm_shared
+GAME_SHARED_OBJDIR=$(MAIN_OBJDIR)/game_shared
 
 BASE_CFLAGS=	-Dstricmp=strcasecmp -D_strnicmp=strncasecmp -Dstrnicmp=strncasecmp \
-		-DCLIENT_WEAPONS
+		-DCLIENT_WEAPONS -fpermissive
 
 #safe optimization
-CFLAGS=$(BASE_CFLAGS) -w -march=i586 -O1
+CFLAGS=$(BASE_CFLAGS) -w -O1 -march=i486 -m32
 
 #full optimization
-#CFLAGS=$(BASE_CFLAGS) -w -O1 -march=i586 -ffast-math -funroll-loops \
+#CFLAGS=$(BASE_CFLAGS) -w -O2 -march=i486 -m32 -ffast-math -funroll-loops \
 	-fomit-frame-pointer -fexpensive-optimizations \
 	-malign-loops=2 -malign-jumps=2 -malign-functions=2
 
@@ -40,6 +48,7 @@ SHLIBCFLAGS=-fPIC
 SHLIBLDFLAGS=-shared
 
 DO_CC=$(CC) $(CFLAGS) $(SHLIBCFLAGS) $(INCLUDEDIRS) -o $@ -c $<
+DO_CPP=$(CPP) $(CFLAGS) $(SHLIBCFLAGS) $(INCLUDEDIRS) -o $@ -c $<
 
 #############################################################################
 # SETUP AND BUILD
@@ -47,10 +56,13 @@ DO_CC=$(CC) $(CFLAGS) $(SHLIBCFLAGS) $(INCLUDEDIRS) -o $@ -c $<
 #############################################################################
 
 $(DLL_OBJDIR)/%.o: $(DLL_SRCDIR)/%.cpp
-	$(DO_CC)
+	$(DO_CPP)
+
+$(WPN_SHARED_OBJDIR)/%.o: $(WPN_SHARED_SRCDIR)/%.cpp
+	$(DO_CPP)
 
 $(GAME_SHARED_OBJDIR)/%.o: $(GAME_SHARED_SRCDIR)/%.cpp
-	$(DO_CC)
+	$(DO_CPP)
 
 $(PM_SHARED_OBJDIR)/%.o: $(PM_SHARED_SRCDIR)/%.c
 	$(DO_CC)
@@ -60,6 +72,13 @@ OBJ = \
 	$(DLL_OBJDIR)/animating.o \
 	$(DLL_OBJDIR)/animation.o \
 	$(DLL_OBJDIR)/bmodels.o \
+	$(DLL_OBJDIR)/bot_ai.o \
+	$(DLL_OBJDIR)/bot_fightstyle.o \
+	$(DLL_OBJDIR)/bot_memory.o \
+	$(DLL_OBJDIR)/bot_misc.o \
+	$(DLL_OBJDIR)/bot_move.o \
+	$(DLL_OBJDIR)/bot_nav.o \
+	$(DLL_OBJDIR)/bot_stats.o \
 	$(DLL_OBJDIR)/buttons.o \
 	$(DLL_OBJDIR)/cbase.o \
 	$(DLL_OBJDIR)/client.o \
@@ -83,18 +102,17 @@ OBJ = \
 	$(DLL_OBJDIR)/healthkit.o \
 	$(DLL_OBJDIR)/items.o \
 	$(DLL_OBJDIR)/lights.o \
-	$(DLL_OBJDIR)/lms.o \
 	$(DLL_OBJDIR)/mac10.o \
 	$(DLL_OBJDIR)/maprules.o \
 	$(DLL_OBJDIR)/mortar.o \
 	$(DLL_OBJDIR)/mpstubb.o \
 	$(DLL_OBJDIR)/multiplay_gamerules.o \
 	$(DLL_OBJDIR)/nodes.o \
+	$(DLL_OBJDIR)/observer.o \
 	$(DLL_OBJDIR)/pathcorner.o \
 	$(DLL_OBJDIR)/plane.o \
 	$(DLL_OBJDIR)/plats.o \
 	$(DLL_OBJDIR)/player.o \
-	$(DLL_OBJDIR)/observer.o \
 	$(DLL_OBJDIR)/rocketmac.o \
 	$(DLL_OBJDIR)/singleplay_gamerules.o \
 	$(DLL_OBJDIR)/skill.o \
@@ -115,17 +133,17 @@ OBJ = \
 	$(GAME_SHARED_OBJDIR)/voice_gamemgr.o
 
 $(DLLNAME)_$(ARCH).$(SHLIBEXT) : neat $(OBJ)
-	$(CC) $(CFLAGS) $(SHLIBLDFLAGS) $(LDFLAGS) -lm -lstdc++ -o $@ $(OBJ)
+	$(CC) $(CFLAGS) $(SHLIBLDFLAGS) $(LDFLAGS) -o $@ $(OBJ)
+	cp $(DLLNAME)_$(ARCH).$(SHLIBEXT) ../../dlls/
 
 neat:
+	-mkdir $(MAIN_OBJDIR)
 	-mkdir $(DLL_OBJDIR)
+	-mkdir $(WPN_SHARED_OBJDIR)
 	-mkdir $(GAME_SHARED_OBJDIR)
 	-mkdir $(PM_SHARED_OBJDIR)
+
 clean:
 	-rm -f $(OBJ)
 	-rm -f $(DLLNAME)_$(ARCH).$(SHLIBEXT)
-spotless: clean
-	-rm -r $(DLL_OBJDIR)
-	-rm -r $(GAME_SHARED_OBJDIR)
-	-rm -r $(PM_SHARED_OBJDIR)
 

@@ -12,6 +12,10 @@
 *   without written permission from Valve LLC.
 *
 ****/
+#ifdef __GNUC__
+using namespace std;
+#endif
+
 #ifndef WEAPONS_H
 #define WEAPONS_H
 

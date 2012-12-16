@@ -26,6 +26,9 @@
  * theirs), and if you let me know, I will credit *
  * them in the next source release.               *
  **************************************************/
+#ifdef __GNUC__
+using namespace std;
+#endif
 
 #ifndef RHOBOT_H
 #define RHOBOT_H

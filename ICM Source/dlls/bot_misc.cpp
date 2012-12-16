@@ -34,7 +34,11 @@
 #include "gamerules.h"
 #include "bot.h"
 #include "bot_misc.h"
+#ifdef _WIN32
 #include <fstream.h>
+#else
+#include <fstream>
+#endif
 #include <string.h>
 
 extern CBasePlayer *CBasePlayerByIndex( int playerIndex ); // client.cpp

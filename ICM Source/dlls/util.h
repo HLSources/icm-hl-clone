@@ -12,6 +12,9 @@
 *   without written permission from Valve LLC.
 *
 ****/
+#ifndef _WIN32
+#include <string.h>
+#endif
 //
 // Misc utility code
 //

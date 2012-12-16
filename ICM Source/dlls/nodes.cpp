@@ -15,6 +15,9 @@
 //=========================================================
 // nodes.cpp - AI node tree stuff.
 //=========================================================
+#ifdef __GNUC__
+using namespace std;
+#endif
 
 #ifdef __linux__
 #include <sys/stat.h>
