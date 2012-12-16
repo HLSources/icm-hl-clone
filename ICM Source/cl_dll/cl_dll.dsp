@@ -95,7 +95,7 @@ InputPath=.\Debug\client.dll
 SOURCE="$(InputPath)"
 
 "client.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(TargetPath) D:\Spiele\Half-Life\icm\cl_dlls
+	copy $(TargetPath) ..\..\cl_dlls
 
 # End Custom Build
 

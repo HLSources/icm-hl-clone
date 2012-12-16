@@ -127,7 +127,7 @@ InputPath=.\Profileicm\icm.dll
 SOURCE="$(InputPath)"
 
 "icm.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(TargetPath) D:\Spiele\Half-Life\icm\dlls
+	copy $(TargetPath) ..\..\dlls
 
 # End Custom Build
 
