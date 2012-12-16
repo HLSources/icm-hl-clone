@@ -1,0 +1,26 @@
+# Project: botgen
+# Makefile created by Dev-C++ 4.9.6.0
+#fnord
+
+CC   = g++.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = botgen.o $(RES)
+LIBS =  -L"E:/Programme/Dev-C++/lib" 
+INCS =  -I"E:/Programme/Dev-C++/include"  -I"E:/Programme/Dev-C++/include/g++-3"  -I"E:/Programme/Dev-C++/include" 
+BIN  = botgen.exe
+CFLAGS = $(INCS)  -s
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before botgen.exe all-after
+
+
+clean: clean-custom
+	rm -f $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(OBJ) -o "botgen.exe" $(LIBS) $(CFLAGS)
+
+botgen.o: botgen.cpp
+	$(CC) -c botgen.cpp -o botgen.o $(CFLAGS)
