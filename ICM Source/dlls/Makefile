@@ -15,7 +15,6 @@ CPP=g++
 DLL_SRCDIR=.
 ENGINE_SRCDIR=../engine
 COMMON_SRCDIR=../common
-WPN_SHARED_SRCDIR=./wpn_shared
 PM_SHARED_SRCDIR=../pm_shared
 GAME_SHARED_SRCDIR=../game_shared
 
@@ -56,9 +55,6 @@ DO_CPP=$(CPP) $(CFLAGS) $(SHLIBCFLAGS) $(INCLUDEDIRS) -o $@ -c $<
 #############################################################################
 
 $(DLL_OBJDIR)/%.o: $(DLL_SRCDIR)/%.cpp
-	$(DO_CPP)
-
-$(WPN_SHARED_OBJDIR)/%.o: $(WPN_SHARED_SRCDIR)/%.cpp
 	$(DO_CPP)
 
 $(GAME_SHARED_OBJDIR)/%.o: $(GAME_SHARED_SRCDIR)/%.cpp
@@ -133,13 +129,12 @@ OBJ = \
 	$(GAME_SHARED_OBJDIR)/voice_gamemgr.o
 
 $(DLLNAME)_$(ARCH).$(SHLIBEXT) : neat $(OBJ)
-	$(CC) $(CFLAGS) $(SHLIBLDFLAGS) $(LDFLAGS) -o $@ $(OBJ)
+	$(CC) $(CFLAGS) $(SHLIBLDFLAGS) $(LDFLAGS) -o $@ $(OBJ) -lstdc++ -lm
 	cp $(DLLNAME)_$(ARCH).$(SHLIBEXT) ../../dlls/
 
 neat:
 	-mkdir $(MAIN_OBJDIR)
 	-mkdir $(DLL_OBJDIR)
-	-mkdir $(WPN_SHARED_OBJDIR)
 	-mkdir $(GAME_SHARED_OBJDIR)
 	-mkdir $(PM_SHARED_OBJDIR)
 

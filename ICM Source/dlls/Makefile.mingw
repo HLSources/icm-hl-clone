@@ -4,6 +4,7 @@
 # March 2002 by botman (botman@planethalflife.com)
 # Modified by Wei Mingzhi (whistler_wmz@users.sf.net)
 #
+# if compiled with current mingw32 hl will crash );
 
 # this is the name of your game MOD DLL file...
 DLLNAME=icm
@@ -129,12 +130,11 @@ all:	$(MAIN_OBJDIR)/$(DLLNAME).dll
 
 $(MAIN_OBJDIR)/$(DLLNAME).dll:	$(DLL_OBJDIR)/dir $(WPN_SHARED_OBJDIR)/dir \
 	$(GAME_SHARED_OBJDIR)/dir $(PM_SHARED_OBJDIR)/dir $(OBJ)
-	i586-mingw32msvc-dlltool -z $(DLLNAME)_MinGW.def $(OBJ)
-	echo DllMain = DllMain@12 >> $(DLLNAME)_MinGW.def
-	echo GiveFnptrsToDll = GiveFnptrsToDll@8 >> $(DLLNAME)_MinGW.def
-	i586-mingw32msvc-dllwrap --def $(DLLNAME)_MinGW.def $(LDFLAGS) --add-stdcall-alias \
+	i586-mingw32msvc-dlltool -z $(DLLNAME)_MinGW.def $(OBJ) --add-stdcall-alias
+	i586-mingw32msvc-dllwrap $(LDFLAGS) --def $(DLLNAME)_MinGW.def \
 		--driver-name=$(CPP) -o $(MAIN_OBJDIR)/$(DLLNAME).dll $(OBJ)
 	cp $(MAIN_OBJDIR)/$(DLLNAME).dll ../../dlls/
+	rm $(MAIN_OBJDIR)/$(DLLNAME).dll
 
 $(MAIN_OBJDIR)/dir:
 	-mkdir "$(MAIN_OBJDIR)"
