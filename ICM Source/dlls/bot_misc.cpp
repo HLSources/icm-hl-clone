@@ -336,7 +336,7 @@ BOOL UseBotCycle( int NumBots )
 		}
 
 		botCycleFile.getline( line, sizeof(line) ); // slurp first line
-
+		if (line[strlen(line)-1] == '\r') line[strlen(line)-1]=0; //dos files in linux
 		if ( FStrEq( lastLastUsedBot, "NoBotLastUsed" ) )
 		{
 			strcpy( BotGlobals.LastUsedBotName, line );
@@ -359,6 +359,7 @@ BOOL UseBotCycle( int NumBots )
 				}
 
 				botCycleFile.getline( line, sizeof(line) );
+				if (line[strlen(line)-1] == '\r') line[strlen(line)-1]=0; //dos files in linux
 			}
 		}
 
