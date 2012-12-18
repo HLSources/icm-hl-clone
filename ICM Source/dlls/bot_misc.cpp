@@ -336,7 +336,8 @@ BOOL UseBotCycle( int NumBots )
 		}
 
 		botCycleFile.getline( line, sizeof(line) ); // slurp first line
-		if (line[strlen(line)-1] == '\r') line[strlen(line)-1]=0; //dos files in linux
+		if (line[strlen(line)-1] == '\r') //dos files in linux
+			line[strlen(line)-1]='\0'; 
 		if ( FStrEq( lastLastUsedBot, "NoBotLastUsed" ) )
 		{
 			strcpy( BotGlobals.LastUsedBotName, line );
@@ -359,7 +360,8 @@ BOOL UseBotCycle( int NumBots )
 				}
 
 				botCycleFile.getline( line, sizeof(line) );
-				if (line[strlen(line)-1] == '\r') line[strlen(line)-1]=0; //dos files in linux
+				if (line[strlen(line)-1] == '\r') //dos files in linux
+					line[strlen(line)-1]='\0';
 			}
 		}
 
@@ -456,6 +458,7 @@ void BotClientPutInServer( edict_t *pEntity, BOOL customBot )
 void BotConnect( int NumBots)
 {
 	edict_t *pEntity;
+	BOOL bPickedCustomBot;
 
 	if (NumBots == 0) // reset names, skins (previously in multiplay_gamerules)
 	{
@@ -472,9 +475,13 @@ void BotConnect( int NumBots)
 
 		strcpy( BotGlobals.LastUsedBotName, "NoBotLastUsed" );
 	}
- 
-	BOOL bPickedCustomBot = UseBotCycle(NumBots);
 
+	bPickedCustomBot = UseBotCycle(NumBots);
+ 
+	if (!bPickedCustomBot) { //always use botcycle
+		strcpy( BotGlobals.LastUsedBotName, "NoBotLastUsed" );
+		bPickedCustomBot = UseBotCycle(NumBots);
+	}
 //Scott: Style change.  Did not like pointer reference.
 //	char *name = "123456789012345678901234567890123456789012345678901234567890";
 	char name[64] = "123456789012345678901234567890123456789012345678901234567890123";
