@@ -16,9 +16,11 @@ void CRulesLMS :: CheckLMS( )
 
 	int iConnected = 0;
 	int iAlive = 0;
+	int iHumansConnected = 0;
+	int iHumansAlive = 0;
 
 	for ( int i = 1; i <= gpGlobals->maxClients; i++ )
-    {
+    	{
 		pEnt = UTIL_PlayerByIndex( i );
 		pPlayer = (CBasePlayer *)pEnt;
 
@@ -29,20 +31,18 @@ void CRulesLMS :: CheckLMS( )
 			continue;
 
 		iConnected++;
+		if (!pPlayer->IsBot())
+			iHumansConnected++;
 		if( pEnt->IsAlive() ) 
 			{
 				iAlive++;
-//				if( CVAR_GET_FLOAT("icm_yousuck") == 1 )
-//					pPlayer->KamikazeTouch (pPlayer);
+				if (!pPlayer->IsBot())
+					iHumansAlive++;
 			}
 	}
 
-	//ALERT(at_console, "%i : %i\n", iConnected, iAlive );
-
-//	if( CVAR_GET_FLOAT("icm_yousuck") == 1 )
-//		CVAR_SET_FLOAT("icm_yousuck", 0);
 	
-	if(iAlive == 0)
+	if(iAlive == 0 && iConnected > 0)
 	{
 		if (m_flWaitResetRound == 0)
 			m_flWaitResetRound = gpGlobals->time + 2.0;
@@ -53,7 +53,7 @@ void CRulesLMS :: CheckLMS( )
 		}
 	}
 
-	if( iConnected >= 2 && iAlive == 1)
+	if( (iConnected >= 2 && iAlive == 1) || (iHumansConnected > 0 && iHumansAlive == 0) )
 	{
 		if (m_flWaitEndLife == 0)
 			m_flWaitEndLife = gpGlobals->time + 3.0;
@@ -80,7 +80,7 @@ void CRulesLMS :: EndLife( )
 	ALERT(at_console, "ENDLIFE\n" );
 
 	for ( int i = 1; i <= gpGlobals->maxClients; i++ )
-    {
+    	{
 		pEnt = UTIL_PlayerByIndex( i );
 		pPlayer = (CBasePlayer *)pEnt;
 

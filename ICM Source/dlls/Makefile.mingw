@@ -96,6 +96,7 @@ OBJ = \
 	$(DLL_OBJDIR)/healthkit.o \
 	$(DLL_OBJDIR)/items.o \
 	$(DLL_OBJDIR)/lights.o \
+	$(DLL_OBJDIR)/lms.o \
 	$(DLL_OBJDIR)/mac10.o \
 	$(DLL_OBJDIR)/maprules.o \
 	$(DLL_OBJDIR)/mortar.o \

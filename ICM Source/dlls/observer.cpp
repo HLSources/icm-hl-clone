@@ -66,7 +66,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
         pev->angles = pev->v_angle = vecViewAngle;
         pev->fixangle = TRUE;
         pev->solid = SOLID_NOT;
-        pev->takedamage = DAMAGE_NO;
+        pev->takedamage = DAMAGE_YES;
         pev->movetype = MOVETYPE_NONE;
         ClearBits( m_afPhysicsFlags, PFLAG_DUCKING );
         ClearBits( pev->flags, FL_DUCKING );

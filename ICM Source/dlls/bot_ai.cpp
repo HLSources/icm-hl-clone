@@ -568,14 +568,14 @@ BOOL CBaseBot::CheckBotKick()
 	pev->button = 0;  // make sure no buttons are pressed
 
 	// if the bot is dead, randomly press fire to respawn...
-	if ((pev->health < 1) || (pev->deadflag != DEAD_NO))
+	/*if ((pev->health < 1) || (pev->deadflag != DEAD_NO))
 	{
 		if (RANDOM_LONG(1, 100) > 50)
 		pev->button = IN_ATTACK;
 
 		g_engfuncs.pfnRunPlayerMove( edict(), pev->v_angle, GetMoveForward(), GetMoveStrafe(), GetMoveVertical(), pev->button, 0, GetMSec() );
 		return TRUE;
-	}
+	}*/
 
 	return FALSE;
 }

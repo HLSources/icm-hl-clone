@@ -28,10 +28,10 @@ BASE_CFLAGS=	-Dstricmp=strcasecmp -D_strnicmp=strncasecmp -Dstrnicmp=strncasecmp
 		-DCLIENT_WEAPONS -fpermissive
 
 #safe optimization
-CFLAGS=$(BASE_CFLAGS) -w -O1 -march=i486 -m32
+CFLAGS=$(BASE_CFLAGS) -w -O1 -march=i586 -m32
 
 #full optimization
-#CFLAGS=$(BASE_CFLAGS) -w -O2 -march=i486 -m32 -ffast-math -funroll-loops \
+#CFLAGS=$(BASE_CFLAGS) -w -O2 -march=i586 -m32 -ffast-math -funroll-loops \
 	-fomit-frame-pointer -fexpensive-optimizations \
 	-malign-loops=2 -malign-jumps=2 -malign-functions=2
 
@@ -98,6 +98,7 @@ OBJ = \
 	$(DLL_OBJDIR)/healthkit.o \
 	$(DLL_OBJDIR)/items.o \
 	$(DLL_OBJDIR)/lights.o \
+	$(DLL_OBJDIR)/lms.o \
 	$(DLL_OBJDIR)/mac10.o \
 	$(DLL_OBJDIR)/maprules.o \
 	$(DLL_OBJDIR)/mortar.o \

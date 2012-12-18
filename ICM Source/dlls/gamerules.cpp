@@ -25,6 +25,7 @@
 #include	"teamplay_gamerules.h"
 #include	"skill.h"
 #include	"game.h"
+#include	"lms.h" 
 
 extern edict_t *EntSelectSpawnPoint( CBaseEntity *pPlayer );
 
@@ -313,34 +314,8 @@ CGameRules *InstallGameRules( void )
 	SERVER_COMMAND( "exec game.cfg\n" );
 	SERVER_EXECUTE( );
 
-	if ( !gpGlobals->deathmatch )
-	{
-		// generic half-life
-		g_teamplay = 0;
-		return new CHalfLifeRules;
-	}
-	else
-	{
-		if ( teamplay.value > 0 )
-		{
-			// teamplay
-
-			g_teamplay = 1;
-			return new CHalfLifeTeamplay;
-		}
-		if ((int)gpGlobals->deathmatch == 1)
-		{
-			// vanilla deathmatch
-			g_teamplay = 0;
-			return new CHalfLifeMultiplay;
-		}
-		else
-		{
-			// vanilla deathmatch??
-			g_teamplay = 0;
-			return new CHalfLifeMultiplay;
-		}
-	}
+	g_teamplay = 0;
+	return new CRulesLMS;
 }
 
 
