@@ -9,7 +9,12 @@ public:
 	//virtual void ClientDisconnected( edict_t *pClient );
 	//virtual void PlayerKilled( CBasePlayer *pVictim, entvars_t *pKiller, entvars_t *pInflictor );
 protected:
+	float m_flWaitCheckLMS;
 	float m_flWaitResetRound;
 	float m_flWaitEndLife;
-	float m_flEndLife;
+	int m_iEndLife = 0;
+	int iConnected_old = 0;
+	int iAlive_old = 0;
+	int iHumansConnected_old = 0;
+	int iHumansAlive_old = 0;
 };

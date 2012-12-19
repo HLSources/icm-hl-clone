@@ -132,6 +132,7 @@ OBJ = \
 $(DLLNAME)_$(ARCH).$(SHLIBEXT) : neat $(OBJ)
 	$(CC) $(CFLAGS) $(SHLIBLDFLAGS) $(LDFLAGS) -o $@ $(OBJ) -lstdc++ -lm
 	cp $(DLLNAME)_$(ARCH).$(SHLIBEXT) ../../dlls/
+	cp $(DLLNAME)_$(ARCH).$(SHLIBEXT) ../../../server/hlds/icm/dlls
 
 neat:
 	-mkdir $(MAIN_OBJDIR)
