@@ -2602,7 +2602,7 @@ void CBasePlayer::PostThink()
 	if ( (FBitSet(pev->flags, FL_ONGROUND)) && (pev->health > 0) && m_flFallVelocity >= PLAYER_FALL_PUNCH_THRESHHOLD )
 	{
 		// ALERT ( at_console, "%f\n", m_flFallVelocity );
-
+		/*
 		if (pev->watertype == CONTENT_WATER)
 		{
 			// Did he hit the world or a non-moving entity?
@@ -2628,7 +2628,7 @@ void CBasePlayer::PostThink()
 				pev->punchangle.x = 0;
 			}
 		}
-
+		*/
 		if ( IsAlive() )
 		{
 			SetAnimation( PLAYER_WALK );

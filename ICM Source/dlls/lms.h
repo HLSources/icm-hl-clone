@@ -1,6 +1,7 @@
 class CRulesLMS : public CHalfLifeMultiplay
 {
 public:
+	CRulesLMS( );	
 	virtual void CheckLMS( );
 	virtual void Think ( );
 	virtual void ResetRound( );
@@ -12,9 +13,5 @@ protected:
 	float m_flWaitCheckLMS;
 	float m_flWaitResetRound;
 	float m_flWaitEndLife;
-	int m_iEndLife = 0;
-	int iConnected_old = 0;
-	int iAlive_old = 0;
-	int iHumansConnected_old = 0;
-	int iHumansAlive_old = 0;
+	int m_iEndLife;
 };

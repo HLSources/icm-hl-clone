@@ -173,7 +173,7 @@ void CBasePlayer::Observer_FindNextPlayer( bool bReverse )
                 // Zum Ziel bewegen
                 UTIL_SetOrigin( pev, m_hObserverTarget->pev->origin );
 
-                ALERT( at_console, "Now Tracking \"%s\"\n", STRING( m_hObserverTarget->pev->netname ) );
+                //ALERT( at_console, "Now Tracking \"%s\"\n", STRING( m_hObserverTarget->pev->netname ) );
         }
         else
         {

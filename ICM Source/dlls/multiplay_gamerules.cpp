@@ -421,7 +421,7 @@ void CHalfLifeMultiplay :: UpdateGameMode( CBasePlayer *pPlayer )
 
 void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 {
-	UTIL_SayTextAll( "ingram chillin' mod v1.0 BETA 1\n", pl );
+	UTIL_SayTextAll( "ingram chillin' mod v1.0-rc1 \"ten years of chillin'\"-edition\n", pl );
 	// notify other clients of player joining the game
 	UTIL_ClientPrintAll( HUD_PRINTNOTIFY, UTIL_VarArgs( "%s has joined the game\n", 
 		( pl->pev->netname && STRING(pl->pev->netname)[0] != 0 ) ? STRING(pl->pev->netname) : "unconnected" ) );
@@ -1563,18 +1563,6 @@ Server is changing to a new level, check mapcycle.txt for map name and setup inf
 */
 void CHalfLifeMultiplay :: ChangeLevel( void )
 {
-	// START RHO-BOT (Eric)
-
-	UTIL_LogPrintf( "Start NavigationArray Save.\n" );
-
-	WorldGraph.SaveNavToFile();
-
-	UTIL_LogPrintf( "NavigationArray Saved.\n" );
-
-	ALERT( at_console, "\nNavigationArray Saved.\n" );
-
-	// END RHO-BOT
-	
 	static char szPreviousMapCycleFile[ 256 ];
 	static mapcycle_t mapcycle;
 

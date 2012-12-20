@@ -367,7 +367,7 @@ void CGraph::SaveNavToFile( void )
 	int i, j, k;
 
 	sprintf( navFileName, "icm/nav/%s.nav", (char *)STRING( gpGlobals->mapname ) );
-
+	ALERT(at_console, "%s", navFileName);
 	navFile = fopen( navFileName, "w" );
 
 	char printThis[25] = "error";

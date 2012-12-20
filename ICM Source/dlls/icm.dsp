@@ -283,6 +283,10 @@ SOURCE=.\lights.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\lms.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\mac10.cpp
 # End Source File
 # Begin Source File
