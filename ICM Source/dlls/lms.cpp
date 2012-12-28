@@ -6,7 +6,7 @@
 #include	"gamerules.h"
 #include	"game.h"
 #include	"lms.h"
-#include <fstream>
+
 extern void respawn( entvars_t* pev, BOOL fCopyCorpse );
 
 CRulesLMS :: CRulesLMS( ) {
@@ -113,7 +113,7 @@ void CRulesLMS :: ResetRound( )
 {
 	CBaseEntity *pEnt = NULL;
 	CBasePlayer *pPlayer = NULL;
-
+	m_iEndLife=0; //Reset
 	for ( int i = 1; i <= gpGlobals->maxClients; i++ )
     	{
 		pEnt = UTIL_PlayerByIndex( i );
