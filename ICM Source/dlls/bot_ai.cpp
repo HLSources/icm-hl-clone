@@ -299,7 +299,13 @@ void CBaseBot::ActionChooseWeapon( void )
 			}
 
 			float CheckWeaponDesire = Stats.FindWeaponDesire( pCheckWeapon, DistanceToEnemy ) * RANDOM_FLOAT(0,1);
-
+			if ( FClassnameIs( pCheckWeapon->pev, "weapon_duebel" ) )
+			{
+				if ( pev->armorvalue > 0 )
+					CheckWeaponDesire = 100;
+				else
+					CheckWeaponDesire = 0;
+			}
 			if ( ( CheckWeaponDesire > BestWeaponDesire ) && pCheckWeapon->CanDeploy() )
 			{
 				BestWeaponDesire = CheckWeaponDesire;

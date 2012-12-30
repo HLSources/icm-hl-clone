@@ -108,9 +108,9 @@ float CBaseBotStats::FDifficultyAdjusted( float currentTrait )
 float CBaseBotStats::FindWeaponDesire( CBasePlayerItem *pWeapon, float DistanceToEnemy )
 { // this function is tweaking the bot's base weapon preferences to suit the situation
 
-/*	if ( FClassnameIs( pWeapon->pev, "weapon_duebel" ) )
+	/*if ( FClassnameIs( pWeapon->pev, "weapon_duebel" ) )
 	{
-		if ( pPlayer->pev->armorvalue > 0 )
+		if ( pev->armorvalue > 0 )
 		{
 			return 100;
 		}
@@ -118,8 +118,8 @@ float CBaseBotStats::FindWeaponDesire( CBasePlayerItem *pWeapon, float DistanceT
 		{
 			return 0;
 		}
-	}
-*/	if ( FClassnameIs( pWeapon->pev, "weapon_9mmAR" ) )
+	}*/
+	if ( FClassnameIs( pWeapon->pev, "weapon_9mmAR" ) )
 	{
 		return GetPrefMP5();
 	}
