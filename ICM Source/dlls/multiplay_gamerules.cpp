@@ -421,7 +421,7 @@ void CHalfLifeMultiplay :: UpdateGameMode( CBasePlayer *pPlayer )
 
 void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 {
-	UTIL_SayTextAll( "ingram chillin' mod v1.0-rc2 \"ten years of chillin'\"-edition\n", pl );
+	UTIL_SayTextAll( "ingram chillin' mod v1.0-rc3 \"ten years of chillin'\"-edition\n", pl );
 	// notify other clients of player joining the game
 	UTIL_ClientPrintAll( HUD_PRINTNOTIFY, UTIL_VarArgs( "%s has joined the game\n", 
 		( pl->pev->netname && STRING(pl->pev->netname)[0] != 0 ) ? STRING(pl->pev->netname) : "unconnected" ) );
