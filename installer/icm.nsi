@@ -1,7 +1,7 @@
-Name "ingram chillin' mod v1.0-rc2" 
+Name "ingram chillin' mod v1.0-rc3" 
 
 # define name of installer
-outFile "icm-v1.0-rc2.exe"
+outFile "icm-v1.0-rc3.exe"
 Icon "icm\icm.ico"
 # define installation directory
 #installDir $DESKTOP
