@@ -66,7 +66,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
         pev->angles = pev->v_angle = vecViewAngle;
         pev->fixangle = TRUE;
         pev->solid = SOLID_NOT;
-        pev->takedamage = DAMAGE_YES;
+        pev->takedamage = DAMAGE_YES; //or else the Rhobot thinks it was kicked
         pev->movetype = MOVETYPE_NONE;
         ClearBits( m_afPhysicsFlags, PFLAG_DUCKING );
         ClearBits( pev->flags, FL_DUCKING );
@@ -91,7 +91,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 
         // Einen Spieler finden, den wir angucken
         m_flNextObserverInput = 0;
-        Observer_SetMode(OBS_CHASE_LOCKED);
+        Observer_SetMode(OBS_CHASE_FREE);
 
         // Allen Clients mitteilen, dass der Spieler jetzt Spectator ist
         MESSAGE_BEGIN( MSG_ALL, gmsgSpectator );
