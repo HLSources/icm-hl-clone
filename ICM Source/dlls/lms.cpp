@@ -66,7 +66,7 @@ void CRulesLMS :: CheckLMS( )
 	else if( (iConnected >= 2 && iAlive == 1) || (iHumansConnected > 0 && iHumansAlive == 0) )
 	{
 		if (bTON(&m_flWaitEndLife, 4.0))		
-			EndLife( );
+			EndLife(iAlive);
 	}
 }
 
@@ -77,7 +77,7 @@ void CRulesLMS :: Think ( )
 		CheckLMS( );
 }
 
-void CRulesLMS :: EndLife( )
+void CRulesLMS :: EndLife(int iAlive)
 {
 	CBaseEntity *pEnt = NULL;
 	CBasePlayer *pPlayer = NULL;
@@ -100,7 +100,8 @@ void CRulesLMS :: EndLife( )
 			}
 			else
 			{
-				pPlayer->pev->frags += 11;
+				if (iAlive == 1)				
+					pPlayer->pev->frags += 11;
 				pPlayer->KamikazeEnd( );
 				m_iEndLife++;
 			}

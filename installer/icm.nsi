@@ -1,7 +1,7 @@
-Name "ingram chillin' mod v1.0-rc3" 
+Name "ingram chillin' mod v1.0-rc5" 
 
 # define name of installer
-outFile "icm-v1.0-rc3.exe"
+outFile "icm-v1.0-rc5.exe"
 Icon "icm\icm.ico"
 # define installation directory
 #installDir $DESKTOP
@@ -12,7 +12,7 @@ UninstPage uninstConfirm
 UninstPage instfiles
  
 # For removing Start Menu short cut in Window 7
-RequestExecutionLevel user
+RequestExecutionLevel admin
  
 # start default section
 section
@@ -20,7 +20,7 @@ section
     # set the installation directory as the destination for the following actions
     setOutPath "$INSTDIR"
 
-    File /r icm
+    File /r standalone\*.*
  
     # create the uninstaller
     writeUninstaller "$INSTDIR\icm\uninstall.exe"
