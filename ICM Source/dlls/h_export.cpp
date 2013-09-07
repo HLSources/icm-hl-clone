@@ -29,9 +29,11 @@
 enginefuncs_t g_engfuncs;
 globalvars_t  *gpGlobals;
 
-#if !defined(_MSC_VER) && !defined(__linux__)
-// needed for MinGW to support DllMain entry/exit function...
-extern "C" EXPORT BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
+#undef DLLEXPORT
+#ifdef _WIN32
+#define DLLEXPORT __stdcall
+#else
+#define DLLEXPORT __attribute__ ((visibility("default")))
 #endif
 
 #ifdef _WIN32
@@ -50,28 +52,12 @@ BOOL WINAPI DllMain(
     }
 	return TRUE;
 }
-
-#ifdef _MSC_VER  // for Microsoft Visual C++...
-void DLLEXPORT GiveFnptrsToDll(	enginefuncs_t* pengfuncsFromEngine, globalvars_t *pGlobals )
-#else  // for Borland and MinGW...
-extern "C" DLLEXPORT void EXPORT GiveFnptrsToDll(enginefuncs_t* pengfuncsFromEngine, globalvars_t *pGlobals)
 #endif
+
+extern "C" void DLLEXPORT GiveFnptrsToDll(	enginefuncs_t* pengfuncsFromEngine, globalvars_t *pGlobals )
 {
 	memcpy(&g_engfuncs, pengfuncsFromEngine, sizeof(enginefuncs_t));
 	gpGlobals = pGlobals;
 }
 
 
-#else
-
-extern "C" {
-
-void GiveFnptrsToDll(	enginefuncs_t* pengfuncsFromEngine, globalvars_t *pGlobals )
-{
-	memcpy(&g_engfuncs, pengfuncsFromEngine, sizeof(enginefuncs_t));
-	gpGlobals = pGlobals;
-}
-
-}
-
-#endif

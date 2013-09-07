@@ -163,6 +163,7 @@ void CBasePlayer :: DeathSound( void ) { }
 int CBasePlayer :: TakeHealth( float flHealth, int bitsDamageType ) { return 0; }
 void CBasePlayer :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) { }
 int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) { return 0; }
+void CBasePlayer::PackDeadPlayerItems( void ) { }
 void CBasePlayer::RemoveAllItems( BOOL removeSuit ) { }
 void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim ) { }
 void CBasePlayer::WaterMove() { }
@@ -234,6 +235,7 @@ int CBasePlayerItem::Restore( class CRestore & ) { return 1; }
 int CBasePlayerItem::Save( class CSave & ) { return 1; }
 int CBasePlayerWeapon::Restore( class CRestore & ) { return 1; }
 int CBasePlayerWeapon::Save( class CSave & ) { return 1; }
+//float CBasePlayerWeapon::GetNextAttackDelay( float flTime ) { return flTime; }
 void CBasePlayerItem :: SetObjectCollisionBox( void ) { }
 void CBasePlayerItem :: FallInit( void ) { }
 void CBasePlayerItem::FallThink ( void ) { }

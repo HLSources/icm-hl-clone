@@ -18,14 +18,15 @@
 // implementation of CHudHealth class
 //
 
-#include "STDIO.H"
-#include "STDLIB.H"
-#include "MATH.H"
+#include "stdio.h"
+#include "stdlib.h"
+#include "math.h"
 
 #include "hud.h"
 #include "cl_util.h"
 #include "parsemsg.h"
 #include <string.h>
+
 
 DECLARE_MESSAGE(m_Health, Health )
 DECLARE_MESSAGE(m_Health, Damage )
@@ -435,7 +436,8 @@ int CHudHealth::DrawDamage(float flTime)
 	ScaleColors(r, g, b, a);
 
 	// Draw all the items
-	for (int i = 0; i < NUM_DMG_TYPES; i++)
+	int i;
+	for ( i = 0; i < NUM_DMG_TYPES; i++)
 	{
 		if (m_bitsDamage & giDmgFlags[i])
 		{

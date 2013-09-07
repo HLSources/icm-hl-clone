@@ -23,7 +23,7 @@ INCLUDEDIRS=-I$(HL_SRC_DIR) -I../dlls -I../tfc -I$(COMMON_SRC_DIR) -I$(PUBLIC_SR
 ifeq ($(OS),Darwin)
 LDFLAGS=$(SHLIBLDFLAGS) $(CPP_LIB) -framework Carbon $(CFG)/vgui.dylib -L. -lSDL2-2.0.0
 else
-LDFLAGS=$(SHLIBLDFLAGS) $(CPP_LIB) -L$(CFG) vgui.so -L. libSDL2-2.0.so.0
+LDFLAGS=$(SHLIBLDFLAGS) $(CPP_LIB) -L. vgui.so -L. libSDL2-2.0.so.0
 endif
 
 DO_CC=$(CPLUS) $(INCLUDEDIRS) $(CFLAGS) -o $@ -c $<
@@ -94,21 +94,12 @@ HL1_OBJS = \
 	
 
 DLL_OBJS = \
-	$(HL1_SERVER_OBJ_DIR)/crossbow.o \
 	$(HL1_SERVER_OBJ_DIR)/crowbar.o \
-	$(HL1_SERVER_OBJ_DIR)/egon.o \
-	$(HL1_SERVER_OBJ_DIR)/gauss.o \
+	$(HL1_SERVER_OBJ_DIR)/duebel.o \
 	$(HL1_SERVER_OBJ_DIR)/handgrenade.o \
-	$(HL1_SERVER_OBJ_DIR)/hornetgun.o \
-	$(HL1_SERVER_OBJ_DIR)/mp5.o \
-	$(HL1_SERVER_OBJ_DIR)/python.o \
-	$(HL1_SERVER_OBJ_DIR)/rpg.o \
-	$(HL1_SERVER_OBJ_DIR)/satchel.o \
-	$(HL1_SERVER_OBJ_DIR)/shotgun.o \
-	$(HL1_SERVER_OBJ_DIR)/squeakgrenade.o \
-	$(HL1_SERVER_OBJ_DIR)/tripmine.o \
-	$(HL1_SERVER_OBJ_DIR)/wpn_shared/hl_wpn_glock.o \
-
+	$(HL1_SERVER_OBJ_DIR)/mac10.o \
+	$(HL1_SERVER_OBJ_DIR)/rocketmac.o \
+	$(HL1_SERVER_OBJ_DIR)/snipermac.o \
 
 PUBLIC_OBJS = \
 	$(PUBLIC_OBJ_DIR)/interface.o \
@@ -137,9 +128,8 @@ all: client.$(SHLIBEXT)
 
 client.$(SHLIBEXT): $(HL1_OBJS) $(PUBLIC_OBJS) $(COMMON_OBJS) $(GAME_SHARED_OBJS) $(DLL_OBJS) $(PM_SHARED_OBJS)
 	$(CLINK) -o $(BUILD_DIR)/$@ $(HL1_OBJS) $(PUBLIC_OBJS) $(COMMON_OBJS) $(GAME_SHARED_OBJS) $(DLL_OBJS) $(PM_SHARED_OBJS) $(LDFLAGS) $(CPP_LIB)
-	p4 edit ../../game/mod/cl_dlls/$@
-	cp $(BUILD_DIR)/$@  ../../game/mod/cl_dlls
-	./gendbg.sh ../../game/mod/cl_dlls/client.$(SHLIBEXT)
+	cp $(BUILD_DIR)/$@  ../../cl_dlls
+	./gendbg.sh ../../cl_dlls/client.$(SHLIBEXT)
 
 $(HL1_OBJ_DIR):
 	mkdir -p $(HL1_OBJ_DIR)
