@@ -355,20 +355,26 @@ void IN_ResetMouse( void )
 {
 	// no work to do in SDL
 #ifdef _WIN32
-	if ( !m_bRawInput && mouseactive && gEngfuncs.GetWindowCenterX && gEngfuncs.GetWindowCenterY )
-	{
+	if ( !m_bRawInput ) {
+		if ( !m_bRawInput && mouseactive && gEngfuncs.GetWindowCenterX && gEngfuncs.GetWindowCenterY )
+		{
 
-		SetCursorPos ( gEngfuncs.GetWindowCenterX(), gEngfuncs.GetWindowCenterY() );
-		ThreadInterlockedExchange( &old_mouse_pos.x, gEngfuncs.GetWindowCenterX() );
-		ThreadInterlockedExchange( &old_mouse_pos.y, gEngfuncs.GetWindowCenterY() );
-	}
+			SetCursorPos ( gEngfuncs.GetWindowCenterX(), gEngfuncs.GetWindowCenterY() );
+			ThreadInterlockedExchange( &old_mouse_pos.x, gEngfuncs.GetWindowCenterX() );
+			ThreadInterlockedExchange( &old_mouse_pos.y, gEngfuncs.GetWindowCenterY() );
+		}
 
-	if ( gpGlobals && gpGlobals->time - s_flRawInputUpdateTime > 1.0f )
-	{
-		s_flRawInputUpdateTime = gpGlobals->time;
-		m_bRawInput = CVAR_GET_FLOAT( "m_rawinput" ) != 0;
+		if ( gpGlobals && gpGlobals->time - s_flRawInputUpdateTime > 1.0f )
+		{
+			s_flRawInputUpdateTime = gpGlobals->time;
+			m_bRawInput = CVAR_GET_FLOAT( "m_rawinput" ) != 0;
+		}
 	}
+	else
 #endif
+	{
+		SDL_WarpMouseInWindow(NULL, gEngfuncs.GetWindowCenterX(), gEngfuncs.GetWindowCenterY());
+	}
 }
 
 /*
@@ -491,9 +497,9 @@ void IN_MouseMove ( float frametime, usercmd_t *cmd)
 		else
 #endif
 		{
-			SDL_GetRelativeMouseState( &deltaX, &deltaY );
-			current_pos.x = deltaX;
-			current_pos.y = deltaY;	
+			SDL_GetMouseState( &deltaX, &deltaY );
+			deltaX = deltaX - gEngfuncs.GetWindowCenterX();
+			deltaY = deltaY - gEngfuncs.GetWindowCenterY();	
 		}
 		
 #ifdef _WIN32
@@ -612,9 +618,9 @@ void CL_DLLEXPORT IN_Accumulate (void)
 #endif
 			{
 				int deltaX, deltaY;
-				SDL_GetRelativeMouseState( &deltaX, &deltaY );
-				mx_accum += deltaX;
-				my_accum += deltaY;	
+				SDL_GetMouseState( &deltaX, &deltaY );
+				mx_accum += deltaX - gEngfuncs.GetWindowCenterX();
+				my_accum += deltaY - gEngfuncs.GetWindowCenterY();	
 			}
 			// force the mouse to the center, so there's room to move
 			IN_ResetMouse();
