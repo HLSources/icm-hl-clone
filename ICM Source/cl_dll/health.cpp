@@ -227,7 +227,7 @@ int CHudHealth::Draw(float flTime)
 		FillRGBA(x, y, iWidth, iHeight, 255, 160, 0, a);
 		//arsh0r - crosshairs
 		int RelativeX = 64;
-		int RelativeY = RelativeX * 0.75;
+		int RelativeY = RelativeX * ScreenHeight / ScreenWidth;
 		int SpaceX = RelativeX * 3;
 		int SpaceY = RelativeY * 3;
 		switch (gHUD.icm_crosshair)
@@ -236,8 +236,8 @@ int CHudHealth::Draw(float flTime)
 				break;
 
 			case CROSS_DOT:
-				iHeight = (ScreenWidth/400);
-				iWidth = (ScreenHeight/300);
+				iHeight = (ScreenHeight/300);
+				iWidth = iHeight;
 				x = (ScreenWidth / 2)-(iWidth/2);
 				y = (ScreenHeight / 2)-(iHeight/2);
 				FillRGBA(x, y, iWidth, iHeight, 255, 0, 0, 255);
@@ -264,21 +264,21 @@ int CHudHealth::Draw(float flTime)
 			case CROSS_ROCKET:
 				iHeight = (ScreenWidth/RelativeX);
 				iWidth = (ScreenHeight/RelativeY);
-				x = (ScreenWidth/2) - (iHeight/2);
-				y = (ScreenHeight/2) - (iWidth/2);
+				x = (ScreenWidth/2) - (iHeight*0.5);
+				y = (ScreenHeight/2) - (iWidth*0.5);
 				FillRGBA(x, y, iWidth, iHeight, 255, 0, 0, 96); //mitte
 				x = (ScreenWidth/2) - (iHeight*1.5);
 				FillRGBA(x, y, iWidth, iHeight, 255, 0, 0, 64); //links
 				x = (ScreenWidth/2) - (iHeight*2.5);
 				FillRGBA(x, y, iWidth, iHeight, 255, 0, 0, 32); //links2
-				x = (ScreenWidth/2) + (iHeight/2);
+				x = (ScreenWidth/2) + (iHeight*0.5);
 				FillRGBA(x, y, iWidth, iHeight, 255, 0, 0, 64); //rechts
 				x = (ScreenWidth/2) + (iHeight*1.5);
 				FillRGBA(x, y, iWidth, iHeight, 255, 0, 0, 32); //rechts2
-				x = (ScreenWidth/2) - (iHeight/2);
+				x = (ScreenWidth/2) - (iHeight*0.5);
 				y = (ScreenHeight/2) - (iWidth*1.5);
 				FillRGBA(x, y, iWidth, iHeight, 255, 0, 0, 32); //oben
-				y = (ScreenHeight/2) + (iWidth/2);
+				y = (ScreenHeight/2) + (iWidth*0.5);
 				FillRGBA(x, y, iWidth, iHeight, 255, 0, 0, 32); //unten
 				break;
 		}
