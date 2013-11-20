@@ -1,7 +1,7 @@
-Name "ingram chillin' mod v1.0-rc5" 
+Name "ingram chillin' mod v1.0-rc10" 
 
 # define name of installer
-outFile "icm-v1.0-rc5.exe"
+outFile "icm-v1.0-rc10.exe"
 Icon "icm\icm.ico"
 # define installation directory
 #installDir $DESKTOP
@@ -20,7 +20,7 @@ section
     # set the installation directory as the destination for the following actions
     setOutPath "$INSTDIR"
 
-    File /r standalone\*.*
+    File /r icm
  
     # create the uninstaller
     writeUninstaller "$INSTDIR\icm\uninstall.exe"
@@ -53,7 +53,7 @@ Function .onInit
   StrCmp $R0 "" 0 +3
     StrCpy $INSTDIR "C:\half-life"
     Goto +2
-  StrCpy $INSTDIR "$R1\SteamApps\$R0\half-life"
+  StrCpy $INSTDIR "$R1\SteamApps\common\half-life"
  
 FunctionEnd
 
